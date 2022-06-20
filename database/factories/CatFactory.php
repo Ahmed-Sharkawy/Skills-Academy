@@ -18,10 +18,10 @@ class CatFactory extends Factory
   public function definition()
   {
     return [
-      'name'  => [
+      'name'  => json_encode([
         'en'  => $this->faker->word(),
         'ar'  => $this->faker->word(),
-      ]
+      ])
     ];
   }
 }

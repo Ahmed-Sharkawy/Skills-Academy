@@ -48,165 +48,42 @@
                     <!-- blog post -->
                     <div class="blog-post mb-5">
                         <p>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">1- What is PHP used for?</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-                                        server-side scripting
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                        client-side scripting
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                                        game development
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                                        machine learning
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                          @foreach ($questions as $index => $question)
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">2- What is PHP used for?</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-                                        server-side scripting
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                        client-side scripting
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                                        game development
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                                        machine learning
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                          <div class="panel panel-default">
+                              <div class="panel-heading">
+                                  <h3 class="panel-title">{{ $index + 1}} - {{ $question->title }} ?</h3>
+                              </div>
+                              <div class="panel-body">
+                                  <div class="radio">
+                                      <label>
+                                          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                                          {{ $question->option_1 }}
+                                      </label>
+                                  </div>
+                                  <div class="radio">
+                                      <label>
+                                          <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                          {{ $question->option_2 }}
+                                      </label>
+                                  </div>
+                                  <div class="radio">
+                                      <label>
+                                          <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                                          {{ $question->option_3 }}
+                                      </label>
+                                  </div>
+                                  <div class="radio">
+                                      <label>
+                                          <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                                          {{ $question->option_4 }}
+                                      </label>
+                                  </div>
+                              </div>
+                          </div>
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">3- What is PHP used for?</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-                                        server-side scripting
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                        client-side scripting
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                                        game development
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                                        machine learning
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                          @endforeach
 
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">4- What is PHP used for?</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-                                        server-side scripting
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                        client-side scripting
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                                        game development
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                                        machine learning
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">5- What is PHP used for?</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-                                        server-side scripting
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                                        client-side scripting
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                                        game development
-                                    </label>
-                                </div>
-                                <div class="radio">
-                                    <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                                        machine learning
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                         </p>
                     </div>
                     <!-- /blog post -->
@@ -224,14 +101,15 @@
                     <!-- exam details widget -->
                     <ul class="list-group">
                         <li class="list-group-item">Skill: programming</li>
-                        <li class="list-group-item">Questions: 20</li>
-                        <li class="list-group-item">Duration: 30 mins</li>
+                        <li class="list-group-item">Questions: {{ $exam->questions_no }}</li>
+                        <li class="list-group-item">Duration: {{ $exam->duration_mins }} mins</li>
                         <li class="list-group-item">Difficulty:
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
+                            @for ($i = 1; $i <= $exam->difficulty; $i++)
+                                <i class="fa fa-star"></i>
+                            @endfor
+                            @for ($j = 1; $j <= 5 - $exam->difficulty; $j++)
+                                <i class="fa fa-star-o"></i>
+                            @endfor
                         </li>
                     </ul>
                     <!-- /exam details widget -->

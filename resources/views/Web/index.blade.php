@@ -8,7 +8,8 @@
     <div id="home" class="hero-area">
 
         <!-- Backgound Image -->
-        <div class="bg-image bg-parallax overlay" style="background-image:url({{ asset('front/img/home-background.jpg') }})">
+        <div class="bg-image bg-parallax overlay"
+            style="background-image:url({{ asset('front/img/home-background.jpg') }})">
         </div>
         <!-- /Backgound Image -->
 

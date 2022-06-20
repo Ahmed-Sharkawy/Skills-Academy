@@ -15,9 +15,11 @@ class CreateExamUserTable extends Migration
   {
     Schema::create('exam_user', function (Blueprint $table) {
       $table->id();
-      $table->float("score", 5, 2);
-      $table->smallInteger("time_mins");
-      $table->enum("status",["opened","closed"]);
+      $table->float("score", 5, 2)->nullable();
+      $table->smallInteger("time_mins")->nullable();
+      $table->id();
+      $table->id();
+      $table->enum("status",["opened","closed"])->default('closed');
       $table->foreignId("user_id")->constrained();
       $table->foreignId("exam_id")->constrained();
       $table->timestamps();

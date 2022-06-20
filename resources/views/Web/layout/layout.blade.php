@@ -55,28 +55,7 @@
             </div>
 
             <!-- Navigation -->
-            <nav id="nav">
-                <ul class="main-menu nav navbar-nav navbar-right">
-                    <li><a href="index.html">@lang('web.home')</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                            aria-expanded="false">@lang('web.cat') <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Programming</a></li>
-                            <li><a href="#">Design</a></li>
-                            <li><a href="#">Management</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="contact.html">@lang('web.cont')</a></li>
-                    <li><a href="login.html">@lang('web.signin')</a></li>
-                    <li><a href="register.html">@lang('web.signup')</a></li>
-                    @if (App::getLocale() == 'en')
-                    <li><a href=" {{ url('lang/ar') }}">ع</a></li>
-                    @else
-                    <li><a href=" {{ url('lang/en') }}">ُEN</a></li>
-                    @endif
-                </ul>
-            </nav>
+            <x-navbar></x-navbar>
             <!-- /Navigation -->
 
         </div>
@@ -97,14 +76,7 @@
 
                 <!-- social -->
                 <div class="col-md-4 col-md-push-8">
-                    <ul class="footer-social">
-                        <li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="#" class="youtube"><i class="fa fa-youtube"></i></a></li>
-                        <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
-                    </ul>
+                    <x-socioal-links></x-socioal-links>
                 </div>
                 <!-- /social -->
 
@@ -137,6 +109,13 @@
     <script type="text/javascript" src=" {{ asset('front/js/jquery.min.js') }} "></script>
     <script type="text/javascript" src=" {{ asset('front/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src=" {{ asset('front/js/main.js') }}"></script>
+
+    <script>
+      $("#logout-link").click(function (e) {
+        e.preventDefault()
+        $("#logout-form").submit()
+      })
+    </script>
 
     @yield('script')
 

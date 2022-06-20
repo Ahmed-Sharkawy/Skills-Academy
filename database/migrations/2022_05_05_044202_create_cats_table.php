@@ -15,8 +15,8 @@ class CreateCatsTable extends Migration
   {
     Schema::create('cats', function (Blueprint $table) {
       $table->id();
-      $table->json("name");
-      // $table->text("name");
+      // $table->json("name");
+      $table->text("name");
       $table->boolean("active")->default(true);
       $table->timestamps();
     });
