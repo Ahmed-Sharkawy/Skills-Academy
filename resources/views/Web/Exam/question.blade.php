@@ -1,7 +1,7 @@
 @extends('Web.layout.layout')
 
 @section('title')
-    Exam:question
+    Exam : question
 @endsection
 
 @section('css')
@@ -160,9 +160,9 @@
     @if ($errors->any())
         @foreach ($errors->all() as $error)
             <script>
-              toastr.options.timeOut = false; // 3s
-              toastr.options.closeButton = true; //
-              toastr.error("{!! $error !!}","timeOut");
+                toastr.options.timeOut = false; // 3s
+                toastr.options.closeButton = true; //
+                toastr.error("{!! $error !!}", "timeOut");
             </script>
         @endforeach
     @endif

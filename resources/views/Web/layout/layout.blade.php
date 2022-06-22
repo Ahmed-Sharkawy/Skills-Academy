@@ -119,6 +119,16 @@
         })
     </script>
 
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <script>
+                toastr.options.timeOut = false; // 3s
+                toastr.options.closeButton = true; //
+                toastr.error("{!! $error !!}", "Verify that the data is correct");
+            </script>
+        @endforeach
+    @endif
+
     @yield('script')
 
 </body>

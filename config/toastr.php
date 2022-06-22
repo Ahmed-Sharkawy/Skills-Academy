@@ -11,7 +11,7 @@ return [
     "onclick" => null,
     "showDuration" => "300",
     "hideDuration" => "1000",
-    "timeOut" => "10000",
+    "timeOut" => true,
     "extendedTimeOut" => "1000",
     "showEasing" => "swing",
     "hideEasing" => "linear",

@@ -40,4 +40,9 @@ class Exam extends Model
     $lang = $lang ?? App::getLocale();
     return json_decode($this->desc)->$lang;
   }
+
+  public function scopeActive($query)
+  {
+    return $query->where('active', 1);
+  }
 }

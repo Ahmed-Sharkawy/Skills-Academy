@@ -1,5 +1,9 @@
 @extends('Web.layout.layout')
 
+@section('css')
+    Verify Email
+@endsection
+
 @section('main')
     <div id="contact" class="section">
 

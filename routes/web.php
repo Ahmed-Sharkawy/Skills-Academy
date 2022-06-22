@@ -5,6 +5,7 @@ use App\Http\Controllers\Web\ContactController;
 use App\Http\Controllers\Web\ExamController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\LangController;
+use App\Http\Controllers\Web\ProfileControler;
 use App\Http\Controllers\Web\SkillController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,11 +26,12 @@ Route::middleware('lang')->group(function () {
   Route::get('skill/show/{id}', [SkillController::class, 'show'])->name('skill.show');
   Route::get('exam/show/{id}', [ExamController::class, 'show'])->name('exam.show')->middleware(['auth', 'verified', 'student']);
   Route::get('exam/question/{id}', [ExamController::class, 'question'])->name('exam.question')->middleware(['auth', 'verified', 'student']);
-  Route::get('contact',[ContactController::class, 'create'])->name('contact.create');
-  Route::post('contact/send',[ContactController::class,'store'])->name('contact.store');
+  Route::get('profile', [ProfileControler::class, 'index'])->name('profile.index')->middleware(['auth', 'verified', 'student']);
+  Route::get('contact', [ContactController::class, 'create'])->name('contact.create');
+  Route::post('contact/send', [ContactController::class, 'store'])->name('contact.store');
 });
 
-Route::post('exam/start/{id}', [ExamController::class, 'start'])->name('exam.start')->middleware(['auth', 'verified', 'student','can.enter.exam']);
+Route::post('exam/start/{id}', [ExamController::class, 'start'])->name('exam.start')->middleware(['auth', 'verified', 'student', 'can.enter.exam']);
 Route::post('exam/submit/{id}', [ExamController::class, 'submit'])->name('exam.submit')->middleware(['auth', 'verified', 'student']);
 
 Route::get('lang/{lang}', [LangController::class, 'set']);

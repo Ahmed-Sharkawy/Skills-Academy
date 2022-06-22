@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1 text-center">
                     <ul class="hero-area-tree">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="{{ route('home') }}">Home</a></li>
                         <li>Sign Up</li>
                     </ul>
                     <h1 class="white-text">Sign Up and estimate your skills</h1>
@@ -36,8 +36,6 @@
 
             <!-- row -->
             <div class="row">
-
-                @include('Web.inc.messages')
 
                 <!-- login form -->
                 <div class="col-md-6 col-md-offset-3">

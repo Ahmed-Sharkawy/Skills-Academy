@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Cat;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
-class CatController extends Controller
+class ProfileControler extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -15,7 +15,7 @@ class CatController extends Controller
    */
   public function index()
   {
-    //
+    return view('Web.profile.profile');
   }
 
   /**
@@ -47,11 +47,7 @@ class CatController extends Controller
    */
   public function show($id)
   {
-    $allCategory  =  Cat::active()->get(['id', 'name']);
-    $cat          =  Cat::findOrFail($id);
-    $skills       =  $cat->skills()->active()->paginate(6);
-
-    return view('Web.cates.show', compact('cat', 'allCategory', 'skills'));
+    //
   }
 
   /**

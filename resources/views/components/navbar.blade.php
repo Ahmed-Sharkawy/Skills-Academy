@@ -22,6 +22,9 @@
             <li><a href="{{ route('register') }}">@lang('web.signup')</a></li>
         @endguest
         @auth
+            @if (Auth::user()->role->name == 'student')
+                <li><a href="{{ route('profile.index') }}">Profile</a></li>
+            @endif
             <li><a href="#" id="logout-link">Signout</a></li>
         @endauth
 

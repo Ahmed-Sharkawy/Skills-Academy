@@ -1,7 +1,7 @@
 @extends('Web.layout.layout')
 
 @section('title')
-    Sign In
+    Profile
 @endsection
 
 @section('main')
@@ -19,10 +19,8 @@
                 <div class="col-md-10 col-md-offset-1 text-center">
                     <ul class="hero-area-tree">
                         <li><a href="{{ route('home') }}">Home</a></li>
-                        <li>Sign In</li>
                     </ul>
-                    <h1 class="white-text">Sign In to start</h1>
-
+                    <h1 class="white-text">Your Exams</h1>
                 </div>
             </div>
         </div>
@@ -41,18 +39,24 @@
 
                 <!-- login form -->
                 <div class="col-md-6 col-md-offset-3">
-                    <div class="contact-form">
-                        <h4>Sign In</h4>
-                        <form action="{{ route('login') }}" method="POST">
-                            @csrf
-                            <input class="input" type="email" name="email" placeholder="Email">
-                            <input class="input" type="password" name="password" placeholder="Password">
-                            <input type="checkbox" name="remember" id="remember_me">
-                            <label for="remember_me">Remember Me</label>
-                            <button type="submit" class="main-button icon-button pull-right">Sign In</button>
-                        </form>
-                        <a href="{{ url('forgot-password') }}">Forgot Password?</a>
-                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Exam Name</th>
+                                <th>Score</th>
+                                <th>Time (mins)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Auth::user()->exams as $exam)
+                                <tr>
+                                    <td>{{ $exam->name() }}</td>
+                                    <td>{{ $exam->pivot->score }}</td>
+                                    <td>{{ $exam->pivot->time_mins }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
                 <!-- /login form -->
 

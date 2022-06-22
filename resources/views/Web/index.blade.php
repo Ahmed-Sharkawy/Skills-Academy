@@ -1,4 +1,5 @@
 @extends('Web.layout.layout')
+
 @section('title')
     Skills Hub
 @endsection
@@ -19,7 +20,8 @@
                     <div class="col-md-8">
                         <h1 class="white-text">@lang('web.hometitle')</h1>
                         <p class="lead white-text">@lang('web.desctitle')</p>
-                        <a class="main-button icon-button" href="#">@lang('web.getstartedBtn')</a>
+                        <a class="main-button icon-button"
+                            href=" {{ route('categories.show', 1) }} ">@lang('web.getstartedBtn')</a>
                     </div>
                 </div>
             </div>
@@ -195,8 +197,6 @@
     </div>
     <!-- /Courses -->
 
-
-
     <!-- Contact CTA -->
     <div id="contact-cta" class="section">
 
@@ -213,7 +213,7 @@
                 <div class="col-md-8 col-md-offset-2 text-center">
                     <h2 class="white-text">{{ __('web.cont') }}</h2>
                     <p class="lead white-text">@lang('web.ContactDesc')</p>
-                    <a class="main-button icon-button" href="contact.html">@lang('web.ContactBtn')</a>
+                    <a class="main-button icon-button" href=" {{ route('contact.create') }} ">@lang('web.ContactBtn')</a>
                 </div>
 
             </div>

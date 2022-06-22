@@ -1,4 +1,5 @@
 @extends('Web.layout.layout')
+
 @section('title')
     Skills Hub
 @endsection
@@ -42,17 +43,12 @@
                     <div class="contact-form">
                         <h4>Send A Message</h4>
 
-                        @include('Web.inc.messages_ajax')
-
                         <form id="contact_form">
                             @csrf
-                            <input class="input contact_form" type="text" name="name" value="{{ old('name') }}"
-                                placeholder="Name">
-                            <input class="input contact_form" type="email" name="email" value="{{ old('email') }}"
-                                placeholder="Email">
-                            <input class="input contact_form" type="text" name="subject" value="{{ old('subject') }}"
-                                placeholder="Subject">
-                            <textarea class="input contact_form" name="message" value="{{ old('message') }}" placeholder="Enter your Message"></textarea>
+                            <input class="input contact_form" type="text" name="name" placeholder="Name">
+                            <input class="input contact_form" type="email" name="email" placeholder="Email">
+                            <input class="input contact_form" type="text" name="subject" placeholder="Subject">
+                            <textarea class="input contact_form" name="message" placeholder="Enter your Message"></textarea>
                             <button type="submit" id="contact_form_btn" class="main-button icon-button pull-right">Send
                                 Message</button>
                         </form>
@@ -109,7 +105,8 @@
                     $('#danger-div').show()
 
                     $.each(xhr.responseJSON.errors, function(key, item) {
-                        $('#danger-div').append(`<p> ${item} </p>`)
+                        // $('#danger-div').append(`<p> ${item} </p>`)
+                        toastr.error(item)
                     })
 
                 }

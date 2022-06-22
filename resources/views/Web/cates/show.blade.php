@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1 text-center">
                     <ul class="hero-area-tree">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href=" {{ route('home') }} ">Home</a></li>
                         <li> {{ $cat->name() }} </li>
                     </ul>
                     <h1 class="white-text"> {{ $cat->name() }} </h1>
@@ -52,7 +52,8 @@
                                             <img src="{{ asset('uploads/skills/' . $skill->image) }}" alt="">
                                         </a>
                                     </div>
-                                    <h4><a href=" {{ route('skill.show', $skill->id) }} "> {{ $skill->name() }} </a></h4>
+                                    <h4><a href=" {{ route('skill.show', $skill->id) }} "> {{ $skill->name() }} </a>
+                                    </h4>
                                     <div class="blog-meta">
                                         {{-- <span>18 Oct, 2017</span> --}}
                                         <span> {{ Carbon\Carbon::parse($skill->created_at)->format('d M, Y') }}

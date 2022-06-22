@@ -24,7 +24,7 @@ class Navbar extends Component
    */
   public function render()
   {
-    $cates = Cat::select('id', 'name')->get();
+    $cates = Cat::select('id', 'name')->active()->get();
     return view('components.navbar',compact('cates'));
   }
 }

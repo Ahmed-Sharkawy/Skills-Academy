@@ -14,8 +14,8 @@ class ExamController extends Controller
 
   public function show($id)
   {
-    $exam = Exam::findOrFail($id);
-    $pivotRow = Auth::user()->exams()->select('status')->where('exam_id', $id)->first();;
+    $exam = Exam::active()->findOrFail($id);
+    $pivotRow = Auth::user()->exams()->select('status')->where('exam_id', $id)->first();
     return view('Web.Exam.show', compact('exam', 'pivotRow'));
   }
 
