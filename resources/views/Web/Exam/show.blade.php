@@ -9,7 +9,8 @@
     <div class="hero-area section">
 
         <!-- Backgound Image -->
-        <div class="bg-image bg-parallax overlay" style="background-image:url(./img/blog-post-background.jpg)"></div>
+        <div class="bg-image bg-parallax overlay"
+            style="background-image:url({{ asset('front/img/blog-post-background.jpg') }})"></div>
         <!-- /Backgound Image -->
 
         <div class="container">
@@ -54,9 +55,12 @@
                     </div>
                     <!-- /blog post -->
 
-                    <div>
-                        <a href=" {{ route('exam.question',$exam->id) }} " class="main-button icon-button pull-left">Start Exam</a>
-                    </div>
+                    @if ($pivotRow == null || $pivotRow->status == 'opened')
+                        <form action="{{ route('exam.start', $exam->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="main-button icon-button pull-left">Start Exam</button>
+                        </form>
+                    @endif
                 </div>
                 <!-- /main blog -->
 

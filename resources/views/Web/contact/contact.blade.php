@@ -79,44 +79,9 @@
 
     </div>
     <!-- /Contact -->
-<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>    <script>
-        $('#success-div').hide()
-        $('#danger-div').hide()
-
-        $('#contact_form_btn').click(function(e) {
-            $('#success-div').hide()
-            $('#success-div').empty()
-            $('#danger-div').hide()
-            $('#danger-div').empty()
-            e.preventDefault();
-            let formData = new FormData($('#contact_form')[0]);
-            $.ajax({
-                method: "POST",
-                url: "{{ route('contact.store') }}",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    $('#success-div').show()
-                    $('#success-div').text(data.success)
-                    $('#contact_form')[0].reset();
-                },
-                error: function(xhr, status, error) {
-                    $('#danger-div').show()
-                    $.each(xhr.responseJSON.errors, function(key, item) {
-                        $('#danger-div').append(`<p> ${item} </p>`)
-                    })
-                }
-            })
-        })
-    </script>
 @endsection
 
-
-
-
-
-{{-- @section('script')
+@section('script')
     <script>
         $('#success-div').hide()
         $('#danger-div').hide()
@@ -135,8 +100,10 @@
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    $('#success-div').show()
-                    $('#success-div').text(data.success)
+                    // $('#success-div').show()
+                    // $('#success-div').text(data.success)
+                    toastr.success(data.success)
+                    $('#contact_form')[0].reset();
                 },
                 error: function(xhr, status, error) {
                     $('#danger-div').show()
@@ -149,4 +116,4 @@
             })
         })
     </script>
-@endsection --}}
+@endsection

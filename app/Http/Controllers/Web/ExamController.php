@@ -2,101 +2,111 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\Exam;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 
 class ExamController extends Controller
 {
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index()
-  {
-    //
-  }
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function create()
-  {
-    //
-  }
-
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
-  public function store(Request $request)
-  {
-    //
-  }
-
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
   public function show($id)
   {
-
-    $exam = Exam::findOrfail($id);
-
-    return view('Web.Exam.show', compact('exam'));
+    $exam = Exam::findOrFail($id);
+    $pivotRow = Auth::user()->exams()->select('status')->where('exam_id', $id)->first();;
+    return view('Web.Exam.show', compact('exam', 'pivotRow'));
   }
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function question($id)
+
+  public function start($examId, Request $request)
   {
-    $exam       = Exam::findOrfail($id);
+    $user  =  Auth::user();
+    $userQuestions = $user->exams()->where('exam_id', $examId)->first();
+
+    if (!$userQuestions) {
+      $user->exams()->attach($examId);
+    } else {
+      $user->exams()->updateExistingPivot($examId, ['status'  =>  'closed']);
+    }
+
+    $request->session()->flash('prev', "start/$examId");
+
+    return redirect()->route('exam.question', $examId);
+  }
+
+
+  public function question($examId, Request $request)
+  {
+
+    if (session('prev') !== "start/$examId" ) {
+      return redirect()->route('exam.show', $examId);
+    }
+
+    $exam       = Exam::findOrFail($examId);
     $questions  = $exam->questions;
+
+    $request->session()->flash('prev', "question/$examId");
+
     return view('Web.Exam.question', compact('exam', 'questions'));
   }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function edit($id)
-  {
-    //
-  }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function update(Request $request, $id)
+  public function submit(Request $request, $examId)
   {
-    //
-  }
+// dd(Session::has('prev'));
+    if (session('prev') !== "question/$examId") {
+      return redirect()->route('exam.show', $examId);
+    }
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
-  public function destroy($id)
-  {
-    //
+    $request->validate([
+      'answers'   => 'required|array',
+      'answers.*' =>  'required|in:1,2,3,4'
+    ]);
+
+    // Calculation Score
+    $exam  =  Exam::findOrFail($examId);
+
+    $points  = 0;
+    $totleQuesNum =  $exam->questions->count();
+
+    foreach ($exam->questions as  $questions) {
+
+      if (isset($request->answers[$questions->id])) {
+
+        $userAns    = $request->answers[$questions->id];
+        $right_ans  = $questions->right_ans;
+
+        if ($userAns == $right_ans) {
+          $points += 1;
+        }
+      }
+    }
+
+    $score  = ($points / $totleQuesNum) * 100;
+
+    // Calculation Time Mins
+    $user        = Auth::user();
+    $pivotRow    = $user->exams()->where('exam_id', $examId)->first();
+    $startTime   = $pivotRow->pivot->updated_at;
+    $submitTime  =  Carbon::now();
+
+    $timeMins = $submitTime->diffInMinutes($startTime);
+    // dd($timeMins);
+    if ($timeMins > $pivotRow->duration_mins) {
+      $score  = 0;
+    }
+
+    // update pivot row
+
+    $user->exams()->updateExistingPivot($examId, [
+      'score'       =>  $score,
+      'time_mins'   =>  $timeMins,
+      'status'      =>  'closed'
+    ]);
+
+    Toastr::success("The test was successfully passed and I got $score%");
+    return redirect()->route('exam.show', $examId);
   }
 }

@@ -11,6 +11,7 @@
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 
     <!-- Bootstrap -->
     <link type="text/css" rel="stylesheet" href=" {{ asset('front/css/bootstrap.min.css') }} " />
@@ -109,12 +110,13 @@
     <script type="text/javascript" src=" {{ asset('front/js/jquery.min.js') }} "></script>
     <script type="text/javascript" src=" {{ asset('front/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src=" {{ asset('front/js/main.js') }}"></script>
-
+    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    {!! Toastr::message() !!}
     <script>
-      $("#logout-link").click(function (e) {
-        e.preventDefault()
-        $("#logout-form").submit()
-      })
+        $("#logout-link").click(function(e) {
+            e.preventDefault()
+            $("#logout-form").submit()
+        })
     </script>
 
     @yield('script')

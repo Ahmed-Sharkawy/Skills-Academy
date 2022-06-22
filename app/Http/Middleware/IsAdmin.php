@@ -19,7 +19,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next)
     {
 
-      $isAdmin = Role::where('name', 'admin')->frisr();
+      $isAdmin = Role::where('name', 'admin')->first();
 
       if(Auth::user()->role_id !== $isAdmin->id){
         return redirect('/');

@@ -3,11 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class IsStudent
+class CanEnterExam
 {
   /**
    * Handle an incoming request.
@@ -19,11 +18,13 @@ class IsStudent
   public function handle(Request $request, Closure $next)
   {
 
-    $isStudent = Role::where('name', 'student')->first();
+    $examId = $request->route()->parameter('id');
+    $pivotRow = Auth::user()->exams()->where('exam_id', $examId)->first();
 
-    if (Auth::user()->role_id !== $isStudent->id) {
-      return redirect('/');
+    if ($pivotRow !== null and $pivotRow->pivot->status == 'closed')  {
+      return redirect()->route('home');
     }
+
     return $next($request);
   }
 }
