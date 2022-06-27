@@ -24,6 +24,8 @@
         @auth
             @if (Auth::user()->role->name == 'student')
                 <li><a href="{{ route('profile.index') }}">Profile</a></li>
+            @else
+                <li><a href="{{ route('dashboard.home') }}">Dashboard</a></li>
             @endif
             <li><a href="#" id="logout-link">Signout</a></li>
         @endauth

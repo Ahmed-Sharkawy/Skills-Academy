@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Exam;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SubmitFormRequest;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,17 +54,11 @@ class ExamController extends Controller
   }
 
 
-  public function submit(Request $request, $examId)
+  public function submit(SubmitFormRequest $request, $examId)
   {
-// dd(Session::has('prev'));
     if (session('prev') !== "question/$examId") {
       return redirect()->route('exam.show', $examId);
     }
-
-    $request->validate([
-      'answers'   => 'required|array',
-      'answers.*' =>  'required|in:1,2,3,4'
-    ]);
 
     // Calculation Score
     $exam  =  Exam::findOrFail($examId);
@@ -93,7 +88,7 @@ class ExamController extends Controller
     $submitTime  =  Carbon::now();
 
     $timeMins = $submitTime->diffInMinutes($startTime);
-    // dd($timeMins);
+
     if ($timeMins > $pivotRow->duration_mins) {
       $score  = 0;
     }

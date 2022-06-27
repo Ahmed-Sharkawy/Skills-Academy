@@ -125,7 +125,8 @@
                         </li>
                     </ul>
                     <!-- /exam details widget -->
-                    <div class="duration-countdown" data-timer=" {{ $exam->duration_mins * 60 }} "></div>
+                    <div class="duration-countdown" data-timer="10"></div>
+                    {{-- <div class="duration-countdown" data-timer=" {{ $exam->duration_mins * 60 }} "></div> --}}
                 </div>
                 <!-- /aside blog -->
 
@@ -160,9 +161,9 @@
     @if ($errors->any())
         @foreach ($errors->all() as $error)
             <script>
-                toastr.options.timeOut = false; // 3s
-                toastr.options.closeButton = true; //
                 toastr.error("{!! $error !!}", "timeOut");
+                toastr.options.closeButton = true; //
+                toastr.options.timeOut = '80000'; // 3s
             </script>
         @endforeach
     @endif

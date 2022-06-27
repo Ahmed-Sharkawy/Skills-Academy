@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Web\CatController;
 use App\Http\Controllers\Web\ContactController;
 use App\Http\Controllers\Web\ExamController;
@@ -35,3 +36,8 @@ Route::post('exam/start/{id}', [ExamController::class, 'start'])->name('exam.sta
 Route::post('exam/submit/{id}', [ExamController::class, 'submit'])->name('exam.submit')->middleware(['auth', 'verified', 'student']);
 
 Route::get('lang/{lang}', [LangController::class, 'set']);
+
+
+Route::prefix('dashboard')->middleware(['auth', 'verified','can.enter.dashboard'])->group(function () {
+  Route::get('/', [AdminHomeController::class, 'index'])->name('dashboard.home');
+});
