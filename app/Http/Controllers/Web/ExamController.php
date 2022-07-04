@@ -21,7 +21,7 @@ class ExamController extends Controller
   }
 
 
-  public function start($examId, Request $request)
+  public function start(Request $request, $examId)
   {
     $user  =  Auth::user();
     $userQuestions = $user->exams()->where('exam_id', $examId)->first();
@@ -41,7 +41,7 @@ class ExamController extends Controller
   public function question($examId, Request $request)
   {
 
-    if (session('prev') !== "start/$examId" ) {
+    if (session('prev') !== "start/$examId") {
       return redirect()->route('exam.show', $examId);
     }
 

@@ -48,7 +48,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (Auth::user()->exams as $exam)
+                            @foreach ($exams as $exam)
                                 <tr>
                                     <td>{{ $exam->name() }}</td>
                                     <td>{{ $exam->pivot->score }}</td>

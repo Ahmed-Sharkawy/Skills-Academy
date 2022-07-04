@@ -16,10 +16,10 @@
                 <!-- login form -->
                 <div class="col-md-6 col-md-offset-3">
                     <div class="contact-form">
-                        <h4>Sign In</h4>
+                        <h4>Verifyemail</h4>
                         <form action="{{ url('email/verification-notification') }}" method="POST">
                             @csrf
-                            <button type="submit" class="main-button icon-button pull-right">Sign In</button>
+                            <button type="submit" class="main-button icon-button pull-right">Send Email !!</button>
                         </form>
                     </div>
                 </div>
