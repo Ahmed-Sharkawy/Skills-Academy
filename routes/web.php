@@ -16,6 +16,8 @@ use App\Http\Controllers\Admin\ExamController as AdminExamController;
 use App\Http\Controllers\Admin\QuestionsController as AdminQuestionsController;
 use App\Http\Controllers\Admin\StudentController as AdminStudentController;
 use App\Http\Controllers\Admin\AdminController as AdminAdminController;
+use App\Http\Controllers\Admin\MessageController as AdminMessageController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -101,12 +103,16 @@ Route::prefix('dashboard')->middleware(['auth', 'verified', 'can.enter.dashboard
   Route::get('student/closed-exam/{user}/{exam}', [AdminStudentController::class, 'closedExam'])->name('dashboard.student.closed.exam');
 
 
-  Route::middleware('super.admin')->group(function ()
-  {
+  Route::middleware('super.admin')->group(function () {
     Route::get('admins', [AdminAdminController::class, 'index'])->name('dashboard.admin.index');
     Route::get('admin/create', [AdminAdminController::class, 'create'])->name('dashboard.admin.create');
     Route::post('admin/store', [AdminAdminController::class, 'store'])->name('dashboard.admin.store');
     Route::get('admin/promotion/{id}', [AdminAdminController::class, 'promotion'])->name('dashboard.admin.promotion');
     Route::get('admin/rebate/{id}', [AdminAdminController::class, 'rebate'])->name('dashboard.admin.rebate');
   });
+
+
+  Route::get('messages', [AdminMessageController::class, 'index'])->name('dashboard.messages.index');
+  Route::get('message/show/{message}', [AdminMessageController::class, 'show'])->name('dashboard.message.show');
+  Route::post('message/store/{message}', [AdminMessageController::class, 'store'])->name('dashboard.message.store');
 });
