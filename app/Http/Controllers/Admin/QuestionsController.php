@@ -14,6 +14,7 @@ class QuestionsController extends Controller
 {
 
 
+
   public function create(Exam $exam)
   {
     if (session('prev') !== $exam->id) {
@@ -24,9 +25,10 @@ class QuestionsController extends Controller
   }
 
 
+
   public function store(CreateRequest $request, Exam $exam)
   {
-dd($request);
+
     for ($i = 0; $i < $exam->questions_no; $i++) {
       Question::create([
         'title'     =>  $request->titles[$i],
@@ -46,24 +48,25 @@ dd($request);
   }
 
 
+
   public function show(Exam $exam)
   {
     return view('admin.questions.show', compact('exam'));
   }
 
 
-  public function edit(Exam $exam ,Question $question)
+
+  public function edit(Exam $exam, Question $question)
   {
-    return view('admin.questions.edit', compact('exam' , 'question'));
+    return view('admin.questions.edit', compact('exam', 'question'));
   }
 
 
-  public function update(Exam $exam, Question $question,UpdateRequest $request)
+
+  public function update(Exam $exam, Question $question, UpdateRequest $request)
   {
     $question->update($request->validated());
     Toastr::success('Update Questions Successfully');
-    return redirect()->route('dashboard.question.show',$exam->id);
+    return redirect()->route('dashboard.question.show', $exam->id);
   }
-
-
 }

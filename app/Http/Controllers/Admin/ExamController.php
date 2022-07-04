@@ -22,11 +22,13 @@ class ExamController extends Controller
   }
 
 
+
   public function create()
   {
     $skills  =  Skill::select('id', 'name')->get();
     return view('admin.exam.create', compact('skills'));
   }
+
 
 
   public function store(CreateRequest $request)
@@ -45,10 +47,12 @@ class ExamController extends Controller
   }
 
 
+
   public function show(Exam $exam)
   {
     return view('admin.exam.show', compact('exam'));
   }
+
 
 
   public function toggle(Exam $exam)
@@ -64,11 +68,13 @@ class ExamController extends Controller
   }
 
 
+
   public function edit(Exam $exam)
   {
     $skills  =  Skill::select('id', 'name')->get();
     return view('admin.exam.edit', compact('exam', 'skills'));
   }
+
 
 
   public function update(EditRequest $request, Exam $exam)
@@ -88,6 +94,7 @@ class ExamController extends Controller
     Toastr::success('Updated Successfully');
     return redirect()->route('dashboard.exam.show', $exam->id);
   }
+
 
 
   public function destroy(Exam $exam)

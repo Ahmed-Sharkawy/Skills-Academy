@@ -15,8 +15,8 @@ class StudentController extends Controller
 
   public function index()
   {
-    $studentRoul  = Role::where('name','student')->first();
-    $students  =  User::select('id','name','email', 'email_verified_at')-> where('role_id', $studentRoul->id)->paginate(10);;
+    $studentRoul  = Role::where('name', 'student')->first();
+    $students  =  User::select('id', 'name', 'email', 'email_verified_at')->where('role_id', $studentRoul->id)->paginate(10);;
 
     return view('admin.student.index', compact('students'));
   }
@@ -36,9 +36,9 @@ class StudentController extends Controller
 
   public function openExam(User $user, Exam $exam)
   {
-    $user->exams()->updateExistingPivot($exam->id, ['status'  => 'opened' ]);
+    $user->exams()->updateExistingPivot($exam->id, ['status'  => 'opened']);
     Toastr::success('Updated Upatus Successfully');
-    return redirect()->route('dashboard.student.show',$user->id);
+    return redirect()->route('dashboard.student.show', $user->id);
   }
 
 
@@ -49,6 +49,4 @@ class StudentController extends Controller
     Toastr::success('Updated Upatus Successfully');
     return redirect()->route('dashboard.student.show', $user->id);
   }
-
-
 }

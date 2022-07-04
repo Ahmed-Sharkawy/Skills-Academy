@@ -10,23 +10,17 @@ use App\Http\Controllers\Controller;
 
 class CatController extends Controller
 {
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
+
+
+
   public function index()
   {
     $cats  =  Cat::orderBy('id', 'DESC')->paginate(10);
     return view('admin.cats.index', compact('cats'));
   }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
+
+
   public function store(CreateRequest $request)
   {
     Cat::create([
@@ -39,13 +33,8 @@ class CatController extends Controller
     return back();
   }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
+
+
   public function update(UpdateRequest $request)
   {
     Cat::findOrFail($request->id)->update([
@@ -58,13 +47,8 @@ class CatController extends Controller
     return back();
   }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
+
+
   public function toggle(Cat $cat)
   {
     $cat->update(['active'  =>  !$cat->active]);
@@ -72,12 +56,8 @@ class CatController extends Controller
     return back();
   }
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
+
+
   public function destroy(Cat $cat)
   {
     try {

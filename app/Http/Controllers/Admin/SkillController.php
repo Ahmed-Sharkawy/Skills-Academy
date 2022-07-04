@@ -24,6 +24,7 @@ class SkillController extends Controller
   }
 
 
+
   public function store(StoreRequest $request)
   {
     $image  =  $this->uploadImage($request, $request->image, "uploads/skills");
@@ -39,6 +40,7 @@ class SkillController extends Controller
     Toastr::success('Ceated Successfully');
     return back();
   }
+
 
 
   public function update(UpdateRequest $request)
@@ -64,12 +66,14 @@ class SkillController extends Controller
   }
 
 
+
   public function toggle(Skill $skill)
   {
     $skill->update(['active'  =>  !$skill->active]);
     Toastr::success('Toggle Updated Success');
     return back();
   }
+
 
 
   public function destroy(Skill $skill)
