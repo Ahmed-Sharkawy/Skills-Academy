@@ -12,12 +12,10 @@ use App\Http\Requests\Skills\UpdateRequest;
 
 class SkillController extends Controller
 {
+
   use UploadImageTrait;
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
+
+
   public function index()
   {
     $skills  =  Skill::orderBy('id', 'DESC')->paginate(10);
@@ -25,12 +23,7 @@ class SkillController extends Controller
     return view('admin.skill.index', compact('skills', 'cats'));
   }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
+
   public function store(StoreRequest $request)
   {
     $image  =  $this->uploadImage($request, $request->image, "uploads/skills");
@@ -47,18 +40,11 @@ class SkillController extends Controller
     return back();
   }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
+
   public function update(UpdateRequest $request)
   {
     $skill  =  Skill::findOrFail($request->id);
     $image  =  $skill->image;
-
 
     if ($request->image) {
       $this->deletImage("uploads/skills/$skill->image");
@@ -77,13 +63,7 @@ class SkillController extends Controller
     return back();
   }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
+
   public function toggle(Skill $skill)
   {
     $skill->update(['active'  =>  !$skill->active]);
@@ -91,12 +71,7 @@ class SkillController extends Controller
     return back();
   }
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return \Illuminate\Http\Response
-   */
+
   public function destroy(Skill $skill)
   {
     try {

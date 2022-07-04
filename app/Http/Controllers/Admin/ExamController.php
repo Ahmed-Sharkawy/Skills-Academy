@@ -45,17 +45,22 @@ class ExamController extends Controller
   }
 
 
-  public function toggle(Exam $exam)
-  {
-    $exam->update(['active'  =>  !$exam->active]);
-    Toastr::success('Toggle Updated Successfully');
-    return redirect()->route('dashboard.exam.index');
-  }
-
-
   public function show(Exam $exam)
   {
     return view('admin.exam.show', compact('exam'));
+  }
+
+
+  public function toggle(Exam $exam)
+  {
+    if ($exam->questions_no == $exam->questions()->count()) {
+      $exam->update(['active'  =>  !$exam->active]);
+      Toastr::success('Toggle Updated Successfully');
+      return redirect()->route('dashboard.exam.index');
+    }
+
+    Toastr::info('Please fill in the remaining questions');
+    return redirect()->route('dashboard.exam.index');
   }
 
 
@@ -81,7 +86,7 @@ class ExamController extends Controller
       'image'   =>  $nameImage,
     ] + $request->validated());
     Toastr::success('Updated Successfully');
-    return redirect()->route('dashboard.exam.show',$exam->id);
+    return redirect()->route('dashboard.exam.show', $exam->id);
   }
 
 
@@ -89,6 +94,7 @@ class ExamController extends Controller
   {
     try {
       $this->deletImage("uploads/skills/" . $exam->image);
+      $exam->questions()->delete();
       $exam->delete();
       Toastr::success('Row Deleted Successfully');
     } catch (\Exception $e) {

@@ -24,18 +24,18 @@ class CreateRequest extends FormRequest
   public function rules()
   {
     return [
-      // 'titles'      =>  'required|array',
-      // 'titles.*'    =>  'required|max:255',
-      // 'right_ans'   =>  'required|array',
-      // 'right_ans.*' =>  'required|numeric|integer|in:1,2,3,4',
-      // 'option_1s'   =>  'required|string|array',
-      // 'option_2s'   =>  'required|string|array',
-      // 'option_3s'   =>  'required|string|array',
-      // 'option_4s'   =>  'required|string|array',
-      // 'option_1s.*' =>  'required|string|max:255',
-      // 'option_2s.*' =>  'required|string|max:255',
-      // 'option_3s.*' =>  'required|string|max:255',
-      // 'option_4s.*' =>  'required|string|max:255',
+      'titles'      =>  'required|array',
+      'titles.*'    =>  'required|max:255',
+      'right_ans'   =>  'required|array',
+      'right_ans.*' =>  'required|numeric|integer|in:1,2,3,4',
+      'option_1s'   =>  'required|array',
+      'option_2s'   =>  'required|array',
+      'option_3s'   =>  'required|array',
+      'option_4s'   =>  'required|array',
+      'option_1s.*' =>  'required|string|max:255',
+      'option_2s.*' =>  'required|string|max:255',
+      'option_3s.*' =>  'required|string|max:255',
+      'option_4s.*' =>  'required|string|max:255',
     ];
   }
 }

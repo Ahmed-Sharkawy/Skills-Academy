@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\SkillController as AdminSkillController;
 use App\Http\Controllers\Admin\CatController as AdminCatController;
 use App\Http\Controllers\Admin\ExamController as AdminExamController;
 use App\Http\Controllers\Admin\QuestionsController as AdminQuestionsController;
+use App\Http\Controllers\Admin\StudentController as AdminStudentController;
+use App\Http\Controllers\Admin\AdminController as AdminAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +63,7 @@ Route::post('exam/submit/{id}', [ExamController::class, 'submit'])->name('exam.s
 Route::prefix('dashboard')->middleware(['auth', 'verified', 'can.enter.dashboard'])->group(function () {
 
 
-  Route::get('/', [AdminHomeController::class, 'index'])->name('dashboard.home');
+  Route::get('home', [AdminHomeController::class, 'index'])->name('dashboard.home');
   Route::get('category', [AdminCatController::class, 'index'])->name('dashboard.category.index');
   Route::post('category/store', [AdminCatController::class, 'store'])->name('dashboard.category.store');
   Route::get('category/destroy/{cat}', [AdminCatController::class, 'destroy'])->name('dashboard.category.destroy');
@@ -91,4 +93,20 @@ Route::prefix('dashboard')->middleware(['auth', 'verified', 'can.enter.dashboard
   Route::get('exam/question/edit/{exam}/{question}', [AdminQuestionsController::class, 'edit'])->name('dashboard.question.edit');
   Route::post('exam/question/update/{exam}/{question}', [AdminQuestionsController::class, 'update'])->name('dashboard.question.update');
   Route::get('exam/question/show/{exam}', [AdminQuestionsController::class, 'show'])->name('dashboard.question.show');
+
+
+  Route::get('student', [AdminStudentController::class, 'index'])->name('dashboard.student.index');
+  Route::get('student/show/{user}', [AdminStudentController::class, 'show'])->name('dashboard.student.show');
+  Route::get('student/open-exam/{user}/{exam}', [AdminStudentController::class, 'openExam'])->name('dashboard.student.open.exam');
+  Route::get('student/closed-exam/{user}/{exam}', [AdminStudentController::class, 'closedExam'])->name('dashboard.student.closed.exam');
+
+
+  Route::middleware('super.admin')->group(function ()
+  {
+    Route::get('admins', [AdminAdminController::class, 'index'])->name('dashboard.admin.index');
+    Route::get('admin/create', [AdminAdminController::class, 'create'])->name('dashboard.admin.create');
+    Route::post('admin/store', [AdminAdminController::class, 'store'])->name('dashboard.admin.store');
+    Route::get('admin/promotion/{id}', [AdminAdminController::class, 'promotion'])->name('dashboard.admin.promotion');
+    Route::get('admin/rebate/{id}', [AdminAdminController::class, 'rebate'])->name('dashboard.admin.rebate');
+  });
 });

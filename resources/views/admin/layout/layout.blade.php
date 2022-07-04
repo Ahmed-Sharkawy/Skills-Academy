@@ -123,6 +123,24 @@
                     </a>
                 </li>
                 <li class="nav-item menu-items">
+                    <a class="nav-link" href="{{ route('dashboard.student.index') }}">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-contacts"></i>
+                        </span>
+                        <span class="menu-title">Student</span>
+                    </a>
+                </li>
+                @if (Auth::user()->role->name == 'superadmin')
+                    <li class="nav-item menu-items">
+                        <a class="nav-link" href="{{ route('dashboard.admin.index') }}">
+                            <span class="menu-icon">
+                                <i class="mdi mdi-apple-keyboard-control"></i>
+                            </span>
+                            <span class="menu-title">Admin</span>
+                        </a>
+                    </li>
+                @endif
+                <li class="nav-item menu-items">
                     <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
                         aria-controls="ui-basic">
                         <span class="menu-icon">
@@ -141,14 +159,6 @@
                                     href="../../pages/ui-features/typography.html">Typography</a></li>
                         </ul>
                     </div>
-                </li>
-                <li class="nav-item menu-items">
-                    <a class="nav-link" href="../../pages/icons/mdi.html">
-                        <span class="menu-icon">
-                            <i class="mdi mdi-contacts"></i>
-                        </span>
-                        <span class="menu-title">Icons</span>
-                    </a>
                 </li>
                 <li class="nav-item menu-items">
                     <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false"
@@ -173,15 +183,6 @@
                                     Register </a></li>
                         </ul>
                     </div>
-                </li>
-                <li class="nav-item menu-items">
-                    <a class="nav-link"
-                        href="http://www.bootstrapdash.com/demo/corona-free/jquery/documentation/documentation.html">
-                        <span class="menu-icon">
-                            <i class="mdi mdi-file-document-box"></i>
-                        </span>
-                        <span class="menu-title">Documentation</span>
-                    </a>
                 </li>
             </ul>
         </nav>
