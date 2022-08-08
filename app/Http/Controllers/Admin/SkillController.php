@@ -18,7 +18,7 @@ class SkillController extends Controller
 
   public function index()
   {
-    $skills  =  Skill::orderBy('id', 'DESC')->paginate(10);
+    $skills   =  Skill::orderBy('id', 'DESC')->paginate(10);
     $cats     =  Cat::select('id', 'name')->get();
     return view('admin.skill.index', compact('skills', 'cats'));
   }
