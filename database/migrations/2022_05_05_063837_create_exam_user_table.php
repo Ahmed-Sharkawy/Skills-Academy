@@ -17,8 +17,6 @@ class CreateExamUserTable extends Migration
       $table->id();
       $table->float("score", 5, 2)->nullable();
       $table->smallInteger("time_mins")->nullable();
-      $table->id();
-      $table->id();
       $table->enum("status",["opened","closed"])->default('closed');
       $table->foreignId("user_id")->constrained();
       $table->foreignId("exam_id")->constrained();
