@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\cat;
+namespace App\Http\Resources\Cat;
 
 use App\Http\Resources\Skill\SkillResource;
 use Illuminate\Http\Resources\Json\JsonResource;

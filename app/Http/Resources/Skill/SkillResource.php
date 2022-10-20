@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\skill;
+namespace App\Http\Resources\Skill;
 
 use App\Http\Resources\Exam\ExamResource;
 use Illuminate\Http\Resources\Json\JsonResource;
