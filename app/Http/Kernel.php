@@ -40,7 +40,7 @@ class Kernel extends HttpKernel
     ],
 
     'api' => [
-      // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+      \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
       'throttle:api',
       \Illuminate\Routing\Middleware\SubstituteBindings::class,
     ],
@@ -59,6 +59,7 @@ class Kernel extends HttpKernel
     'admin' => \App\Http\Middleware\IsAdmin::class,
     'super.admin' => \App\Http\Middleware\IsSuperAdmin::class,
     'can.enter.exam' => \App\Http\Middleware\CanEnterExam::class,
+    'can.enter.exam.api' => \App\Http\Middleware\CanEnterExamApi::class,
     'can.enter.dashboard' => \App\Http\Middleware\CanEnterDashboard::class,
     'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
     'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
