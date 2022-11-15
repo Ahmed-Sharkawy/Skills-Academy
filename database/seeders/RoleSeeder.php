@@ -7,18 +7,17 @@ use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder
 {
-  /**
-   * Run the database seeds.
-   *
-   * @return void
-   */
-  public function run()
-  {
-    Role::Create(['name' => 'superadmin']);
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        Role::create(['name' => 'superadmin']);
 
-    Role::create(['name' => 'admin']);
+        Role::create(['name' => 'admin']);
 
-    Role::create(['name' => 'student']);
-
-  }
+        Role::create(['name' => 'student']);
+    }
 }

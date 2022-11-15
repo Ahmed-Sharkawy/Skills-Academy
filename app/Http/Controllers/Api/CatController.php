@@ -9,25 +9,20 @@ use App\Http\Resources\Cat\CatResource;
 class CatController extends Controller
 {
 
+    public function index()
+    {
+        return CatResource::collection(Cat::get());
+    }
 
-  public function index()
-  {
-    return CatResource::collection(Cat::get());
-  }
+    public function show(Cat $cat)
+    {
+        return new CatResource($cat->load('skills'));
+    }
 
-
-
-  // public function show($id)
-  // {
-  //   $cat  =  Cat::with('skills')->findOrFail($id);
-  //   return new CatResource($cat);
-  // }
-
-
-
-  public function show(Cat $cat)
-  {
-    return CatResource::make($cat->load('skills'));
-  }
+    // public function show($id)
+    // {
+    //     $cat  =  Cat::with('skills')->findOrFail($id);
+    //     return new CatResource($cat);
+    // }
 
 }
