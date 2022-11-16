@@ -35,7 +35,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($exams as $exam)
+                                @foreach ($user->exams as $exam)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $exam->name('en') }}</td>

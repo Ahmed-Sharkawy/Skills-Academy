@@ -13,60 +13,51 @@ use Illuminate\Http\Request;
 class QuestionsController extends Controller
 {
 
+    public function create(Exam $exam)
+    {
+        if (session('prev') !== $exam->id) {
+            return redirect()->route('dashboard.exam.index');
+        }
 
-
-  public function create(Exam $exam)
-  {
-    if (session('prev') !== $exam->id) {
-      return redirect()->route('dashboard.exam.index');
+        return view('admin.questions.create', ['exam_id' => $exam->id, 'questions_no' => $exam->questions_no]);
     }
 
-    return view('admin.questions.create', ['exam_id' => $exam->id, 'questions_no' => $exam->questions_no]);
-  }
+    public function store(CreateRequest $request, Exam $exam)
+    {
 
+        for ($i = 0; $i < $exam->questions_no; $i++) {
+            Question::create([
+                'title'     =>  $request->titles[$i],
+                'right_ans' =>  $request->right_ans[$i],
+                'option_1'  =>  $request->option_1s[$i],
+                'option_2'  =>  $request->option_2s[$i],
+                'option_3'  =>  $request->option_3s[$i],
+                'option_4'  =>  $request->option_4s[$i],
+                'exam_id'   =>  $exam->id,
+            ]);
+        }
 
+        $exam->update(['active' => 1]);
 
-  public function store(CreateRequest $request, Exam $exam)
-  {
-
-    for ($i = 0; $i < $exam->questions_no; $i++) {
-      Question::create([
-        'title'     =>  $request->titles[$i],
-        'right_ans' =>  $request->right_ans[$i],
-        'option_1'  =>  $request->option_1s[$i],
-        'option_2'  =>  $request->option_2s[$i],
-        'option_3'  =>  $request->option_3s[$i],
-        'option_4'  =>  $request->option_4s[$i],
-        'exam_id'   =>  $exam->id,
-      ]);
+        Toastr::success('Ceated Questions Successfully');
+        return redirect()->route('dashboard.exam.index');
     }
 
-    $exam->update(['active' => 1]);
+    public function show(Exam $exam)
+    {
+        return view('admin.questions.show', compact('exam'));
+    }
 
-    Toastr::success('Ceated Questions Successfully');
-    return redirect()->route('dashboard.exam.index');
-  }
+    public function edit(Exam $exam, Question $question)
+    {
+        return view('admin.questions.edit', compact('exam', 'question'));
+    }
 
+    public function update(Exam $exam, Question $question, UpdateRequest $request)
+    {
+        $question->update($request->validated());
 
-
-  public function show(Exam $exam)
-  {
-    return view('admin.questions.show', compact('exam'));
-  }
-
-
-
-  public function edit(Exam $exam, Question $question)
-  {
-    return view('admin.questions.edit', compact('exam', 'question'));
-  }
-
-
-
-  public function update(Exam $exam, Question $question, UpdateRequest $request)
-  {
-    $question->update($request->validated());
-    Toastr::success('Update Questions Successfully');
-    return redirect()->route('dashboard.question.show', $exam->id);
-  }
+        Toastr::success('Update Questions Successfully');
+        return redirect()->route('dashboard.question.show', $exam->id);
+    }
 }
