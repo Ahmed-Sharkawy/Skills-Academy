@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-  use HasFactory;
+    use HasFactory;
 
-  protected $guarded = ['id', 'created_at', 'updated-at'];
+    protected $guarded = ['id', 'created_at', 'updated-at'];
 
-  public function users()
-  {
-    return $this->hasMany(User::class);
-  }
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

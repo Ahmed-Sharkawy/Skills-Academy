@@ -18,7 +18,6 @@ class SkillController extends Controller
 
     public function show(Skill $skill)
     {
-        // $Skill = Skill::with('exams')->findOrFail($id);
         return new SkillResource($skill->load('exams'));
     }
 

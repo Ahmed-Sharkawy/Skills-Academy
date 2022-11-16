@@ -4,44 +4,31 @@ namespace App\Http\Controllers\Api;
 
 use Carbon\Carbon;
 use App\Models\Exam;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Question\SubmitRequest;
 
 class QuestionController extends Controller
 {
 
     public function start($examId)
     {
-
         $user  =  auth()->user();
         $userQuestions = $user->exams()->where('exam_id', $examId)->first();
 
-        if (!$userQuestions) {
+        if (! $userQuestions) {
             $user->exams()->attach($examId);
         } else {
             $user->exams()->updateExistingPivot($examId, ['status'  =>  'closed']);
         }
+
         return response()->json(['message' =>  'you started exam']);
     }
 
-
-
-    public function submit(Request $request, $examId)
+    public function submit(SubmitRequest $request, Exam $exam)
     {
-
-        $validator  =  Validator::make($request->all(), [
-            'answers'   =>  'array',
-            'answers.*' =>  'in:1,2,3,4'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        }
-
         // Calculation Score
-        $exam  =  Exam::findOrFail($examId);
+        $user    = Auth::user();
         $points  = 0;
 
         $totleQuesNum =  $exam->questions->count();
@@ -62,8 +49,7 @@ class QuestionController extends Controller
         $score  = ($points / $totleQuesNum) * 100;
 
         // // Calculation Time Mins
-        $user        = Auth::user();
-        $pivotRow    = $user->exams()->where('exam_id', $examId)->first();
+        $pivotRow    = $user->exams()->where('exam_id', $exam->id)->first();
         $startTime   = $pivotRow->pivot->updated_at;
         $submitTime  =  Carbon::now();
 
@@ -73,9 +59,9 @@ class QuestionController extends Controller
             $score  = 0;
         }
 
-        // // update pivot row
+        // update pivot row
 
-        $user->exams()->updateExistingPivot($examId, [
+        $user->exams()->updateExistingPivot($exam->id, [
             'score'       =>  $score,
             'time_mins'   =>  $timeMins,
             'status'      =>  'closed'

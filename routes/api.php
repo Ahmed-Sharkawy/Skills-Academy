@@ -30,11 +30,9 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::middleware('auth:api')->group(function () {
 
-    Route::post('exam/show/question/{id}', [ExamController::class, 'show']);
+    Route::post('exam/show/question/{exam}', [ExamController::class, 'show']);
     Route::post('exam/start/question/{id}', [QuestionController::class, 'start']);
-    Route::post('exam/submit/question/{id}', [QuestionController::class, 'submit'])->middleware('can.enter.exam.api');
+    Route::post('exam/submit/question/{exam}', [QuestionController::class, 'submit'])->middleware('can.enter.exam.api');
 
-
-    Route::post('me', [AuthController::class, 'me']);
     Route::post('logout', [AuthController::class, 'logout']);
 });

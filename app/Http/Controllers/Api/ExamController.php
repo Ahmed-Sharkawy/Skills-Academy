@@ -16,7 +16,6 @@ class ExamController extends Controller
 
     public function show(Exam $exam)
     {
-        // $Exam  =  Exam::with('questions')->findOrFail($id);
         return new ExamResource($exam->load('questions'));
     }
 

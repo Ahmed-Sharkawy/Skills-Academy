@@ -18,11 +18,4 @@ class CatController extends Controller
     {
         return new CatResource($cat->load('skills'));
     }
-
-    // public function show($id)
-    // {
-    //     $cat  =  Cat::with('skills')->findOrFail($id);
-    //     return new CatResource($cat);
-    // }
-
 }

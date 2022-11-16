@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
-  use HasFactory;
+    use HasFactory;
 
-  protected $guarded = ['id', 'created_at', 'updated-at'];
+    protected $guarded = ['id', 'created_at', 'updated-at'];
 
-  public function exams()
-  {
-    return $this->belongsTo(Exam::class);
-  }
+    public function exams()
+    {
+        return $this->belongsTo(Exam::class);
+    }
 }
