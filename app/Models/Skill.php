@@ -35,7 +35,8 @@ class Skill extends Model
         foreach ($this->exams as $exam) {
             $studentNum += $exam->users()->count();
         }
-        return $studentNum;
+
+        return $studentNum ?? 10;
     }
 
     public function scopeActive($query)

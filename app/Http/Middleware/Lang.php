@@ -8,20 +8,20 @@ use Illuminate\Support\Facades\App;
 
 class Lang
 {
-  /**
-   * Handle an incoming request.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-   * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-   */
-  public function handle(Request $request, Closure $next)
-  {
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+     */
+    public function handle(Request $request, Closure $next)
+    {
 
-    $lang = $request->session()->get('lang');
-    $lang = $lang ?? 'en';
-    App::setLocale($lang);
+        $lang = $request->session()->get('lang');
+        $lang = $lang ?? 'en';
+        App::setLocale($lang);
 
-    return $next($request);
-  }
+        return $next($request);
+    }
 }

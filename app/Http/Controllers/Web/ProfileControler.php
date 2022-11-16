@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Auth;
 class ProfileControler extends Controller
 {
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index()
-  {
-    $exams  =  Auth::user()->exams;
-    return view('Web.profile.profile', compact('exams'));
-  }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $exams  =  Auth::user()->exams;
+        return view('Web.profile.profile', compact('exams'));
+    }
 }

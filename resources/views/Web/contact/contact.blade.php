@@ -1,116 +1,150 @@
 @extends('Web.layout.layout')
 
 @section('title')
-    Skills Hub
+Skills Hub
 @endsection
 
 @section('main')
-    <!-- Hero-area -->
-    <div class="hero-area section">
+<!-- Hero-area -->
+<div class="hero-area section">
 
-        <!-- Backgound Image -->
-        <div class="bg-image bg-parallax overlay"
-            style="background-image:url({{ asset('front/img/page-background.jpg') }})"></div>
-        <!-- /Backgound Image -->
+    <!-- Backgound Image -->
+    <div class="bg-image bg-parallax overlay" style="background-image:url({{ asset('front/img/page-background.jpg') }})">
+    </div>
+    <!-- /Backgound Image -->
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1 text-center">
-                    <ul class="hero-area-tree">
-                        <li><a href=" {{ route('home') }} ">Home</a></li>
-                        <li>Contact</li>
-                    </ul>
-                    <h1 class="white-text">Get In Touch</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 text-center">
+                <ul class="hero-area-tree">
+                    <li><a href=" {{ route('home') }} ">Home</a></li>
+                    <li>Contact</li>
+                </ul>
+                <h1 class="white-text">Get In Touch</h1>
 
-                </div>
             </div>
         </div>
-
     </div>
-    <!-- /Hero-area -->
 
-    <!-- Contact -->
-    <div id="contact" class="section">
+</div>
+<!-- /Hero-area -->
 
-        <!-- container -->
-        <div class="container">
+<!-- Contact -->
+<div id="contact" class="section">
 
-            <!-- row -->
-            <div class="row">
+    <!-- container -->
+    <div class="container">
 
-                <!-- contact form -->
-                <div class="col-md-6">
-                    <div class="contact-form">
-                        <h4>Send A Message</h4>
+        <!-- row -->
+        <div class="row">
 
-                        <form id="contact_form">
-                            @csrf
-                            <input class="input contact_form" type="text" name="name" placeholder="Name">
-                            <input class="input contact_form" type="email" name="email" placeholder="Email">
-                            <input class="input contact_form" type="text" name="subject" placeholder="Subject">
-                            <textarea class="input contact_form" name="message" placeholder="Enter your Message"></textarea>
-                            <button type="submit" id="contact_form_btn" class="main-button icon-button pull-right">Send
-                                Message</button>
-                        </form>
-                    </div>
+            <!-- contact form -->
+            <div class="col-md-6">
+                <div class="contact-form">
+                    <h4>Send A Message</h4>
+
+                    <form id="contact_form">
+                        @csrf
+                        <span class="text-danger input_name"></span>
+                        <input class="input contact_form" type="text" name="name" placeholder="Name">
+                        <span class="text-danger input_subject"></span>
+                        <input class="input contact_form" type="text" name="subject" placeholder="Subject">
+                        <span class="text-danger input_email"></span>
+                        <input class="input contact_form" type="email" name="email" placeholder="Email">
+                        <span class="text-danger input_message"></span>
+                        <textarea class="input contact_form" name="message" placeholder="Enter your Message"></textarea>
+                        <button type="submit" id="contact_form_btn" class="main-button icon-button pull-right">Send
+                            Message</button>
+                    </form>
                 </div>
-                <!-- /contact form -->
+            </div>
+            <!-- /contact form -->
 
-                <!-- contact information -->
-                <div class="col-md-5 col-md-offset-1">
-                    <h4>Contact Information</h4>
-                    <ul class="contact-details">
-                        <li><i class="fa fa-envelope"></i>{{ $setting->email }}</li>
-                        <li><i class="fa fa-phone"></i>{{ $setting->phone }}</li>
-                    </ul>
-
-                </div>
-                <!-- contact information -->
+            <!-- contact information -->
+            <div class="col-md-5 col-md-offset-1">
+                <h4>Contact Information</h4>
+                <ul class="contact-details">
+                    <li><i class="fa fa-envelope"></i>{{ $setting->email }}</li>
+                    <li><i class="fa fa-phone"></i>{{ $setting->phone }}</li>
+                </ul>
 
             </div>
-            <!-- /row -->
+            <!-- contact information -->
 
         </div>
-        <!-- /container -->
+        <!-- /row -->
 
     </div>
-    <!-- /Contact -->
+    <!-- /container -->
+
+</div>
+<!-- /Contact -->
 @endsection
 
 @section('script')
-    <script>
-        $('#success-div').hide()
-        $('#danger-div').hide()
-        $('#contact_form_btn').click(function(e) {
-            $('#success-div').hide()
-            $('#success-div').empty()
-            $('#danger-div').hide()
-            $('#danger-div').empty()
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
 
-            e.preventDefault();
-            let formData = new FormData($('#contact_form')[0]);
-            $.ajax({
-                method: "POST",
-                url: "{{ route('contact.store') }}",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    // $('#success-div').show()
-                    // $('#success-div').text(data.success)
-                    toastr.success(data.success)
-                    $('#contact_form')[0].reset();
-                },
-                error: function(xhr, status, error) {
-                    $('#danger-div').show()
+<script>
+    const form = $('#contact_form');
 
-                    $.each(xhr.responseJSON.errors, function(key, item) {
-                        // $('#danger-div').append(`<p> ${item} </p>`)
-                        toastr.error(item)
-                    })
+    form.submit(function(e) {
+        e.preventDefault();
 
-                }
+        $('.input_name').empty();
+        $('.input_subject').empty();
+        $('.input_email').empty();
+        $('.input_message').empty();
+
+        const formData = new FormData(form[0]);
+
+        axios.post("{{ route('contact.store') }}", formData)
+            .then((response) => {
+                window.location.reload();
             })
-        })
-    </script>
+            .catch((errors) => {
+                $.each(errors.response.data.errors, function(key, item) {
+                    $(`.input_${key}`).show()
+                    $(`.input_${key}`).text(item[0])
+                    // toastr.error(item)
+                })
+            });
+    });
+
+
+    // $('#success-div').hide()
+    // $('#danger-div').hide()
+    // $('#contact_form_btn').sub(function(e) {
+    //     $('#success-div').hide()
+    //     $('#success-div').empty()
+    //     $('#danger-div').hide()
+    //     $('#danger-div').empty()
+
+    //     e.preventDefault();
+    //     let formData = new FormData($('#contact_form')[0]);
+    //     $.ajax({
+    //         method: "POST",
+    //         url: "{{ route('contact.store') }}",
+    //         data: formData,
+    //         contentType: false,
+    //         processData: false,
+    //         success: function(data) {
+    //             // $('#success-div').show()
+    //             // $('#success-div').text(data.success)
+    //             toastr.success(data.success)
+    //             $('#contact_form')[0].reset();
+    //         },
+    //         error: function(xhr, status, error) {
+    //             $('#danger-div').show()
+
+    //             $.each(xhr.responseJSON.errors, function(key, item) {
+    //                 // $('#danger-div').append(`<p> ${item} </p>`)
+    //                 toastr.error(item)
+    //             })
+
+    //         }
+    //     })
+    // })
+
+</script>
 @endsection

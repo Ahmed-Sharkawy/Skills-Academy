@@ -9,8 +9,7 @@
     <div class="hero-area section">
 
         <!-- Backgound Image -->
-        <div class="bg-image bg-parallax overlay"
-            style="background-image:url({{ asset('front/img/page-background.jpg') }})">
+        <div class="bg-image bg-parallax overlay" style="background-image:url({{ asset('front/img/page-background.jpg') }})">
         </div>
         <!-- /Backgound Image -->
 
@@ -43,7 +42,7 @@
 
                     <!-- row -->
                     <div class="row">
-                        @foreach ($skills as $skill)
+                        @foreach ($cat->skills as $skill)
                             <!-- single skill -->
                             <div class="col-md-4">
                                 <div class="single-blog">

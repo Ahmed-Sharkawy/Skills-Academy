@@ -8,11 +8,11 @@ use App\Models\Cat;
 class CatController extends Controller
 {
 
-  public function show(Cat $cat)
-  {
-    $allCategory  =  Cat::active()->get(['id', 'name']);
-    $skills       =  $cat->skills()->active()->paginate(6);
+    public function show(Cat $cat)
+    {
+        $allCategory = Cat::with('skills')->active()->get(['id', 'name']);
+        $skills      = $cat->load('skills')->active()->paginate(4);
 
-    return view('Web.cates.show', compact('cat', 'allCategory', 'skills'));
-  }
+        return view('Web.cates.show', compact('cat', 'allCategory', 'skills'));
+    }
 }

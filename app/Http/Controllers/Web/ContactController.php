@@ -10,19 +10,16 @@ use App\Models\Setting;
 class ContactController extends Controller
 {
 
+    public function create()
+    {
+        $setting = Setting::select("email", "phone")->first();
+        return view('Web.contact.contact', compact('setting'));
+    }
 
-  public function create()
-  {
-    $setting = Setting::select("email", "phone")->first();
-    return view('Web.contact.contact', compact('setting'));
-  }
+    public function store(ContactRequest $request)
+    {
+        Message::create(['body' => $request->message] + $request->validated());
 
-
-  public function store(ContactRequest $request)
-  {
-    Message::create([ 'body' => $request->message] + $request->validated());
-    $data = ['success' => 'your message sent successfullysuccessfully'];
-    return response()->json($data);
-  }
-
+        return response()->json(['success' => 'your message sent successfullysuccessfully']);
+    }
 }

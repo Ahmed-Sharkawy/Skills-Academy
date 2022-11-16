@@ -9,29 +9,29 @@ use Illuminate\Queue\SerializesModels;
 
 class ContactResponseMail extends Mailable
 {
-  use Queueable, SerializesModels;
+    use Queueable, SerializesModels;
 
-  public $name, $title, $body;
+    public $name, $title, $body;
 
-  /**
-   * Create a new message instance.
-   *
-   * @return void
-   */
-  public function __construct($name, $title, $body)
-  {
-    $this->name   = $name;
-    $this->title  = $title;
-    $this->body   = $body;
-  }
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    public function __construct($name, $title, $body)
+    {
+        $this->name   = $name;
+        $this->title  = $title;
+        $this->body   = $body;
+    }
 
-  /**
-   * Build the message.
-   *
-   * @return $this
-   */
-  public function build()
-  {
-    return $this->view('emails.contact-esponse');
-  }
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        return $this->view('emails.contact-esponse');
+    }
 }
